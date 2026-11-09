@@ -27,6 +27,25 @@
 ## 宿題
 
 - 取り組んだレベル：基礎 
-- やったこと：
-- 結果：
-- 気づき・疑問：
+- やったこと：make_quizで問題、ヒント、答えの順で返すように書き換え、agent.pyのinstructionsに設定した。
+- 結果：[model] gemini-3.5-flash-lite
+確認問題をお出しします。
+
+**問題：**
+「AIエージェント」の意味は？
+
+**ヒント：**
+第3回の講義で扱った用語です。関連する用語として agent-loop や tool、harness があります。
+
+**答え：**
+LLMが自分で判断してツールを呼び出し、その結果を見てさらに次の行動を決める、というループで目的を達成するシステム。基本構造は「モデル＋ループ＋ツール」。
+
+---
+関係する回：第3回
+
+--- trace ---
+[tool call]   make_quiz({'lecture': 3})
+[tool return] make_quiz -> {"question": "「AIエージェント」の意味は？", "answer": "LLMが自分で判断してツールを呼び出し、その結果を見てさらに次の行動を決める、というループで目的を達成するシステム。基本構造は「モデル＋ループ＋ツール」。…
+[usage] RunUsage(cost=Decimal('0.0005967'), details={'text_prompt_tokens': 964}, input_text_tokens=964, input_tokens=964, output_tokens=123, requests=2, tool_calls=1)
+make_quizを変更するだけではagentの振る舞いは変わらず、agentのinstructionsを変更することで出力が変化した。
+- 気づき・疑問：モデルの出力はツールによって決まるのでもモデルの構造で決まるわけでもない。モデルのInstructionの使用可能なツールの用途があり、出力の形式が定められていてかつ、ツールが必要な情報を返す必要があるのだと感じた。agentの動作の背景がこうなっているのかと初めて知った。
